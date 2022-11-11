@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LOGGEDIN</title>
+</head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+var subjectObject = {
+  "commerce": {
+    "b.com": ["enquiry", "placeorder", "return", "xxxxxx"],
+    "CS": ["enquiry", "placeorder", "return", "xxxxxx"],
+    "mcom": ["enquiry", "placeorder", "return", "xxxxxx"]
+  },
+  "computer science": {
+    "PHP": ["enquiry", "placeorder", "return", "xxxxxx"],
+    "SQL": ["enquiry", "placeorder", "return", "xxxxxx"]
+  }
+}
+window.onload = function() {
+  var subjectSel = document.getElementById("subject");
+  var topicSel = document.getElementById("topic");
+  var chapterSel = document.getElementById("chapter");
+  for (var x in subjectObject) {
+    subjectSel.options[subjectSel.options.length] = new Option(x, x);
+  }
+  subjectSel.onchange = function() {
+    //empty Chapters- and Topics- dropdowns
+    chapterSel.length = 1;
+    topicSel.length = 1;
+    //display correct values
+    for (var y in subjectObject[this.value]) {
+      topicSel.options[topicSel.options.length] = new Option(y, y);
+    }
+  }
+  topicSel.onchange = function() {
+    //empty Chapters dropdown
+    chapterSel.length = 1;
+    //display correct values
+    var z = subjectObject[subjectSel.value][this.value];
+    for (var i = 0; i < z.length; i++) {
+      chapterSel.options[chapterSel.options.length] = new Option(z[i], z[i]);
+    }
+  }
+}
+</script>
+ <body>
+
+     <form method="POST">
+		{% csrf_token %}
+		<input type="text" name="Name" placeholder="name">
+		<br><br>
+		<input type="text" name="DOB" placeholder="dob">
+		<br><br>
+		<input type="text" name="Age" placeholder="age">
+		<br><br>
+		<input type="text" name="Gender" placeholder="gender">
+		<br><br>
+        <input type="text" name="Phone" placeholder="phone">
+		<br><br>
+        <input type="text" name="Mail ID" placeholder="mail">
+		<br><br>
+	    <input type="text" name="Address" placeholder="address">
+		<br><br>
+
+	<form name="form1" id="form1" action="/action_page.php">
+      Department: <select name="subject" id="subject">
+         <option value="" selected="selected">Select subject</option>
+       </select>
+      <br><br>
+      Coursess: <select name="topic" id="topic">
+         <option value="" selected="selected">Please select subject first</option>
+       </select>
+      <br><br>
+      Purpose: <select name="chapter" id="chapter">
+         <option value="" selected="selected">Please select topic first</option>
+       </select>
+       <br><br>
+
+        <h4>Materials provide</h4>
+
+      <form action="/action_page.php">
+          <input type="checkbox" id="vehicle1" name="vehicle1" value="pen">
+          <label for="vehicle1"> pen</label><br>
+          <input type="checkbox" id="vehicle2" name="vehicle2" value="pencil">
+          <label for="vehicle2"> pencil</label><br>
+          <input type="checkbox" id="vehicle3" name="vehicle3" value="papper">
+          <label for="vehicle3"> papper</label><br><br>
+
+</form>
+
+        <button type="button" onclick="alert('ORDER CONFIRMED SUCCESSFULLY!')" value="Submit">SUBMIT</button>
+        <br><br>
+
+   </form>
+
+
+ </body>
+</html>
